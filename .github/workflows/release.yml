@@ -1,0 +1,20 @@
+name: Build Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create ZIP
+        run: zip -r Ultimate2Mapper.zip .
+
+      - name: Upload Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Ultimate2Mapper.zip
