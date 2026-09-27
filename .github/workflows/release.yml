@@ -4,17 +4,23 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Create ZIP
-        run: zip -r Ultimate2Mapper.zip .
+        run: |
+          zip -r Ultimate2Mapper.zip . -x "*.git*"
 
-      - name: Upload Asset
+      - name: Upload ZIP to Release
         uses: softprops/action-gh-release@v2
         with:
           files: Ultimate2Mapper.zip
+        
